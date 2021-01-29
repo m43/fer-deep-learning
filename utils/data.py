@@ -25,15 +25,18 @@ class Random2DGaussian:
 
     def __init__(self):
         dw0, dw1 = self.d0max - self.d0min, self.d1max - self.d1min
+
         mean = (self.d0min, self.d1min)
         mean += np.random.random_sample(2) * (dw0, dw1)
+
         eigvals = np.random.random_sample(2)
         eigvals *= (dw0 / self.scalecov, dw1 / self.scalecov)
         eigvals **= 2
         theta = np.random.random_sample() * np.pi * 2
-        R = [[np.cos(theta), -np.sin(theta)],
-             [np.sin(theta), np.cos(theta)]]
-        Sigma = np.dot(np.dot(np.transpose(R), np.diag(eigvals)), R)
+        R = np.array([[np.cos(theta), -np.sin(theta)],
+                      [np.sin(theta), np.cos(theta)]])
+        Sigma = R.T @ np.diag(eigvals) @ R
+
         self.get_sample = lambda n: np.random.multivariate_normal(mean, Sigma, n)
 
 
@@ -49,7 +52,7 @@ def graph_surface(function, rect, offset=0.5, width=256, height=256):
     Returns:
       None
     """
-
+    artist = []
     lsw = np.linspace(rect[0][1], rect[1][1], width)
     lsh = np.linspace(rect[0][0], rect[1][0], height)
     xx0, xx1 = np.meshgrid(lsh, lsw)
@@ -63,11 +66,15 @@ def graph_surface(function, rect, offset=0.5, width=256, height=256):
     maxval = max(np.max(values) - delta, - (np.min(values) - delta))
 
     # draw the surface and the offset
-    plt.pcolormesh(xx0, xx1, values,
-                   vmin=delta - maxval, vmax=delta + maxval)
+    cme = plt.pcolormesh(xx0, xx1, values, shading="auto",
+                         vmin=delta - maxval, vmax=delta + maxval)
+    artist.append(cme)
 
     if offset != None:
-        plt.contour(xx0, xx1, values, colors='black', levels=[offset])
+        co = plt.contour(xx0, xx1, values, colors='black', levels=[offset])
+        artist.append(co)
+
+    return artist
 
 
 def graph_data(X, Y_, Y, special=[]):
@@ -82,25 +89,32 @@ def graph_data(X, Y_, Y, special=[]):
     Returns:
         None
     """
+    artist = []
+
     # colors of the datapoint markers
-    palette = ([0.5, 0.5, 0.5], [1, 1, 1], [0.2, 0.2, 0.2])
+    # palette = ([0.5, 0.5, 0.5], [1, 1, 1], [0.2, 0.2, 0.2])
+    palette = ([231 / 255, 76 / 255, 60 / 255], [155 / 255, 89 / 255, 182 / 255], [44 / 255, 62 / 255, 80 / 255])
     colors = np.tile([0.0, 0.0, 0.0], (Y_.shape[0], 1))
     for i in range(len(palette)):
         colors[Y_ == i] = palette[i]
 
     # sizes of the datapoint markers
-    sizes = np.repeat(20, len(Y_))
-    sizes[special] = 40
+    sizes = np.repeat(25, len(Y_))
+    sizes[special] = 10
 
     # draw the correctly classified datapoints
     good = (Y_ == Y)
-    plt.scatter(X[good, 0], X[good, 1], c=colors[good],
-                s=sizes[good], marker='o')
+    s1 = plt.scatter(X[good, 0], X[good, 1], c=colors[good],
+                     s=sizes[good], marker='o', edgecolors='k')
+    artist.append(s1)
 
     # draw the incorrectly classified datapoints
     bad = (Y_ != Y)
-    plt.scatter(X[bad, 0], X[bad, 1], c=colors[bad],
-                s=sizes[bad], marker='s')
+    s2 = plt.scatter(X[bad, 0], X[bad, 1], c=colors[bad],
+                     s=sizes[bad], marker='x', edgecolors='k')
+    artist.append(s2)
+
+    return artist
 
 
 def class_to_onehot(Y):
