@@ -72,7 +72,7 @@ def graph_surface(function, rect, offset=0.5, width=256, height=256):
 
     if offset != None:
         co = plt.contour(xx0, xx1, values, colors='black', levels=[offset])
-        artist.append(co)
+        artist.extend(co.collections)
 
     return artist
 
@@ -99,8 +99,8 @@ def graph_data(X, Y_, Y, special=[]):
         colors[Y_ == i] = palette[i]
 
     # sizes of the datapoint markers
-    sizes = np.repeat(25, len(Y_))
-    sizes[special] = 10
+    sizes = np.repeat(10, len(Y_))
+    sizes[special] = 25
 
     # draw the correctly classified datapoints
     good = (Y_ == Y)

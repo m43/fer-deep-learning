@@ -4,7 +4,7 @@ import numpy as np
 import os
 import pprint
 
-from model.logreg import binlogreg_classify, binlogreg_train, binlogreg_loss
+from model.binlogreg import binlogreg_classify, binlogreg_train, binlogreg_loss
 from utils.data import sample_gauss_2d, graph_surface, graph_data, eval_perf_binary
 from utils.util import project_path, get_str_formatted_time, ensure_dir
 
@@ -128,7 +128,7 @@ def demo(params):
     graph_surface(lambda x: binlogreg_classify(x, w, b), rect, offset=None)
     # graph the data points
     graph_data(X_train, Y_train_, Y_train, special=[])
-    plt.savefig(os.path.join(params["save_dir"], "plot_train.png"))
+    plt.savefig(os.path.join(params["save_dir"], "plot_train.png"), dpi=200)
     if params["show_plots"]:
         plt.show()
     plt.close()
@@ -137,7 +137,7 @@ def demo(params):
     plt.title("ALL " + params["run_name"])
     graph_surface(lambda x: binlogreg_classify(x, w, b), rect, offset=None)
     graph_data(X_all, Y_all_, Y_all, special=test_indices_in_all_datapoints)
-    plt.savefig(os.path.join(params["save_dir"], "plot_all.png"))
+    plt.savefig(os.path.join(params["save_dir"], "plot_all.png"), dpi=200)
     if params["show_plots"]:
         plt.show()
     plt.close()

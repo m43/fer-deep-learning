@@ -41,3 +41,10 @@ def ensure_dirs(dirs):
 
 def sigmoid(x, beta=1):
     return 1. / (1. + np.exp(-beta * x))
+
+
+def softmax(X):
+    X_stable = X - np.expand_dims(X.max(axis=-1), axis=-1)
+    exp_X_stable = np.exp(X_stable)
+    result = exp_X_stable / np.expand_dims(exp_X_stable.sum(axis=-1), axis=-1)
+    return result
