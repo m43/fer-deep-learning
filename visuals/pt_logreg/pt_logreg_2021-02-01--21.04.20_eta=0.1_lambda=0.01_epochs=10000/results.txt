@@ -1,0 +1,23 @@
+params:
+{'epochs': 10000,
+ 'eta': 0.1,
+ 'lambda': 0.01,
+ 'run_name': 'pt_logreg_2021-02-01--21.04.20_eta=0.1_lambda=0.01_epochs=10000',
+ 'save_dir': '/mnt/terra/xoding/fer-du/imgs/pt_logreg/pt_logreg_2021-02-01--21.04.20_eta=0.1_lambda=0.01_epochs=10000',
+ 'show_plots': False}
+results:{'(recall_i, precision_i)': [(0.97,
+                              0.9603960396039604),
+                             (0.96,
+                              0.9795918367346939),
+                             (1.0,
+                              0.9900990099009901)],
+ 'accuracy': 0.9766666666666667,
+ 'confusion matrix': array([[ 97,   2,   1],
+       [  4,  96,   0],
+       [  0,   0, 100]]),
+ 'train_loss': tensor(0.1621, dtype=torch.float64, grad_fn=<AddBackward0>),
+ 'w': Parameter containing:
+tensor([[-0.4295, -1.0548,  1.4843],
+        [-0.4793,  1.0303, -0.5509]], dtype=torch.float64, requires_grad=True),
+ 'w_mean': tensor(-6.3158e-10, dtype=torch.float64, grad_fn=<MeanBackward0>),
+ 'w_std': tensor(1.0095, dtype=torch.float64, grad_fn=<StdBackward0>)}

@@ -9,6 +9,7 @@ from model.pt_logreg import PTLogreg
 from utils.data import sample_gauss_2d, sample_gmm_2d, class_to_onehot, eval_perf_multi, graph_data, graph_surface
 from utils.util import get_str_formatted_time, ensure_dir, project_path
 
+
 def train(model, X, Yoh_, epochs, eta, weight_decay):
     """
     Arguments:
@@ -18,18 +19,19 @@ def train(model, X, Yoh_, epochs, eta, weight_decay):
     - eta: learning rate
     - weight_decay: L2 regularization parameter
     """
-    optimizer = optim.SGD(model.parameters(), lr=eta, weight_decay=weight_decay)
+    optimizer = optim.SGD(model.parameters(), lr=eta)
 
     for i in range(epochs):
-        loss = model.get_loss(X, Yoh_)
+        loss = model.get_loss(X, Yoh_, weight_decay)
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
 
-        if i<=20 or i%100==0:
+        if i <= 20 or i % 100 == 0:
             print(f"step:{i:06d}   model_loss:{loss}")
 
     return loss
+
 
 def eval(model, X):
     """
@@ -41,6 +43,7 @@ def eval(model, X):
     X = torch.from_numpy(X)
     probs = model.forward(X)
     return probs.detach().numpy()
+
 
 def demo(params):
     print(f"params:")
@@ -100,8 +103,9 @@ def demo(params):
         plt.show()
     plt.close()
 
+
 if __name__ == "__main__":
-    params = {"epochs": 10000, "eta": 0.1, "lambda": 0.01/2}
+    params = {"epochs": 10000, "eta": 0.1, "lambda": 0.01}
     params["show_plots"] = False
 
     run_name = f"pt_logreg_{get_str_formatted_time()}_eta={params['eta']}_lambda={params['lambda']}_epochs={params['epochs']}"

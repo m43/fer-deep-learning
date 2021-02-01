@@ -18,7 +18,9 @@ class PTLogreg(nn.Module):
         probs = torch.softmax(scores, dim=1)
         return probs
 
-    def get_loss(self, X, Yoh_):
+    def get_loss(self, X, Yoh_, weight_decay):
         Y = self.forward(X)
         nLL = -(Yoh_*torch.log(Y)).sum(axis = 1).mean()
-        return nLL
+        L2_penalty = weight_decay * (self.w**2).sum()
+        loss = nLL + L2_penalty
+        return loss
