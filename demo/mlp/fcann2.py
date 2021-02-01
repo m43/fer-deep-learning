@@ -15,18 +15,18 @@ def demo(params):
     pp.pprint(params)
 
     # get data
-    np.random.seed(72)
-    # X, Y_ = sample_gmm_2d(4, 3, 200)
+    np.random.seed(100)
+    X, Y_ = sample_gmm_2d(6, 2, 10)
     # X, Y_ = sample_gmm_2d(4, 3, 200)
 
     # np.random.seed(100)
     # X, Y_ = sample_gauss_2d(2, 200)
 
-    np.random.seed(100)
-    X, Y_ = sample_gauss_2d(3, 100)
+    # np.random.seed(100)
+    # X, Y_ = sample_gauss_2d(3, 100)
 
     # data preprocessing
-    X = (X-X.mean(axis=0))/X.std(axis=0)
+    # X = (X-X.mean(axis=0))/X.std(axis=0)
     Y_onehot_ = class_to_onehot(Y_)
 
     fig, ax = plt.subplots()
@@ -64,12 +64,12 @@ def demo(params):
     Y = np.argmax(probs, axis=-1)
 
     # evaluation
-    accuracy, recall, precision = eval_perf_multi(Y, Y_)
+    accuracy, pr, conf = eval_perf_multi(Y, Y_)
     results = {}
     results["train_loss"] = train_loss
     results["accuracy"] = accuracy
-    results["precision"] = precision
-    results["recall"] = recall
+    results["(recall_i, precision_i)"] = pr
+    results["confusion matrix"] = conf
     results["w1_mean"] = w1.mean()
     results["w1_std"] = w1.std()
     results["w2_mean"] = w2.mean()
@@ -129,10 +129,11 @@ def demo(params):
 
 
 if __name__ == "__main__":
-    params = {"epochs": 10000, "eta": 1e-2, "lambda": 0, "H": 100}
+    params = {"epochs": 100000, "eta": 0.05, "lambda": 1e-3, "H": 5}
+    # params = {"epochs": 10000, "eta": 1e-2, "lambda": 0, "H": 100}
     params["grad_check"] = True
     params["grad_check_epsilon"] = 1e-5
-    params["log_interval"] = 100
+    params["log_interval"] = 1000
     params["animate"] = True
     params["show_plots"] = False
 

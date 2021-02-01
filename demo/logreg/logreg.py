@@ -39,7 +39,8 @@ def demo(params):
         train_loss = logreg_loss(Y_onehot_, probs_train, w, params["lambda"])
 
         # gs = graph_surface(lambda x: logreg_get_probs(x, w, b).max(axis=-1), rect)
-        gs = graph_surface(lambda x: np.argmax(logreg_get_probs(x, w, b), axis=-1), rect)
+        gs = graph_surface(lambda x: np.argmax(
+            logreg_get_probs(x, w, b), axis=-1), rect)
 
         d = graph_data(X, Y_, Y)
         txt_iter = plt.text(0.5, 0.9, f"i:{iter}", ha="center", va="bottom",
@@ -60,12 +61,13 @@ def demo(params):
     Y = np.argmax(logreg_get_probs(X, w, b), axis=-1)
 
     # evaluation
-    accuracy, recall, precision = eval_perf_multi(Y, Y_)
+    accuracy, pr, conf = eval_perf_multi(Y, Y_)
+    results["train_loss"] = train_loss
     results = {}
     results["train_loss"] = train_loss
     results["accuracy"] = accuracy
-    results["precision"] = precision
-    results["recall"] = recall
+    results["(recall_i, precision_i)"] = pr
+    results["confusion matrix"] = conf
     results["w"] = w
     results["w_mean"] = w.mean()
     results["w_std"] = w.std()
@@ -82,8 +84,10 @@ def demo(params):
 
     if params["animate"]:
         print("Processing animation")
-        ani = animation.ArtistAnimation(fig, ims, interval=200, blit=True, repeat_delay=500)
-        ani.save(os.path.join(params["save_dir"], "animation.mp4"), metadata={'artist': 'm43'})
+        ani = animation.ArtistAnimation(
+            fig, ims, interval=200, blit=True, repeat_delay=500)
+        ani.save(os.path.join(params["save_dir"], "animation.mp4"), metadata={
+                 'artist': 'm43'})
         print("Animation saved")
         if params["show_plots"]:
             plt.show()
@@ -95,7 +99,8 @@ def demo(params):
     # graph the decision surface
     rect = (np.min(X, axis=0), np.max(X, axis=0))
     # graph_surface(lambda x: logreg_get_probs(x, w, b).max(axis=-1), rect)
-    graph_surface(lambda x: np.argmax(logreg_get_probs(x, w, b), axis=-1), rect)
+    graph_surface(lambda x: np.argmax(
+        logreg_get_probs(x, w, b), axis=-1), rect)
 
     # graph the data points
     graph_data(X, Y_, Y, special=[])
