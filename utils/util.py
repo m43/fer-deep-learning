@@ -48,3 +48,7 @@ def softmax(X):
     exp_X_stable = np.exp(X_stable)
     result = exp_X_stable / np.expand_dims(exp_X_stable.sum(axis=-1), axis=-1)
     return result
+
+
+def relu(x):
+    return np.maximum(0, x)
