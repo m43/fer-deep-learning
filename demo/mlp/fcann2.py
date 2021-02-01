@@ -131,8 +131,6 @@ def demo(params):
 if __name__ == "__main__":
     params = {"epochs": 100000, "eta": 0.05, "lambda": 1e-3, "H": 5}
     # params = {"epochs": 10000, "eta": 1e-2, "lambda": 0, "H": 100}
-    params["grad_check"] = True
-    params["grad_check_epsilon"] = 1e-5
     params["log_interval"] = 1000
     params["animate"] = True
     params["show_plots"] = False

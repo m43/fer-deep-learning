@@ -62,16 +62,15 @@ def demo(params):
 
     # evaluation
     accuracy, pr, conf = eval_perf_multi(Y, Y_)
-    results["train_loss"] = train_loss
     results = {}
     results["train_loss"] = train_loss
     results["accuracy"] = accuracy
     results["(recall_i, precision_i)"] = pr
     results["confusion matrix"] = conf
-    results["w"] = w
     results["w_mean"] = w.mean()
     results["w_std"] = w.std()
     pp.pprint(results)
+    results["w"] = w
 
     with open(os.path.join(params["save_dir"], "results.txt"), "w") as f:
         f.write("params:\n")
