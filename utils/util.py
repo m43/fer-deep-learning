@@ -25,7 +25,7 @@ project_path = pathlib.Path(__file__).parent.parent
 
 
 def get_str_formatted_time() -> str:
-    return datetime.now().strftime('%Y-%m-%d--%H.%M.%S')
+    return datetime.now().strftime('%Y.%m.%d_%H.%M.%S')
 
 
 def ensure_dir(dirname):
