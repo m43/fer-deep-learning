@@ -1,6 +1,8 @@
-import numpy as np
+import os
 import pathlib
 from datetime import datetime
+
+import numpy as np
 
 horse = """               .,,.
              ,;;*;;;;,
@@ -52,3 +54,21 @@ def softmax(X):
 
 def relu(x):
     return np.maximum(0, x)
+
+
+def zipdir(path, ziph):
+    """
+    Usage example:
+    zipf = zipfile.ZipFile(results_path + ".zip", 'w', zipfile.ZIP_DEFLATED)
+    zipdir(results_path, zipf)
+    zipf.close()
+
+    Source: https://stackoverflow.com/questions/41430417/using-zipfile-to-create-an-archive
+
+    :param path: Path to dir to zip
+    :param ziph: zipfile handle
+    :return:
+    """
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(path, '..')))
