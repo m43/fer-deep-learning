@@ -2,8 +2,8 @@ from sklearn.svm import SVC
 
 
 class KSVMWrap:
-    def __init__(self, X, Y_, c=1, gamma="auto", decision_function_shape="ovo"):
-        self.clf = SVC(kernel='rbf', decision_function_shape=decision_function_shape, C=c, gamma=gamma,
+    def __init__(self, X, Y_, c=1, gamma="auto", decision_function_shape="ovo", kernel='rbf'):
+        self.clf = SVC(kernel=kernel, decision_function_shape=decision_function_shape, C=c, gamma=gamma,
                        probability=True)
         self.c = c
         self.gamma = gamma

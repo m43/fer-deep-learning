@@ -29,7 +29,7 @@ def demo(params, X, Y_):
 
     train_loss = PTUtil.train(model, X, Yoh_, params["epochs"], params["eta"], params["lambda"])
     PTUtil.count_params(model)
-    PTUtil.log(X, Y_, Yoh_, params, pp, model, train_loss)
+    PTUtil.log_2d(X, Y_, Yoh_, params, pp, model, train_loss)
 
 
 if __name__ == "__main__":

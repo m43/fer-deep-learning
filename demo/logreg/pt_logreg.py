@@ -19,7 +19,7 @@ def demo(params, X, Y_):
 
     model = PTLogreg(X.shape[1], Yoh_.shape[1])
     train_loss = PTUtil.train(model, X, Yoh_, params["epochs"], params["eta"], params["lambda"])
-    PTUtil.log(X, Y_, Yoh_, params, pp, model, train_loss)
+    PTUtil.log_2d(X, Y_, Yoh_, params, pp, model, train_loss)
 
 
 if __name__ == "__main__":
