@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import torch
 
 
 class Random2DGaussian:
@@ -99,8 +100,8 @@ def graph_data(X, Y_, Y, special=[]):
         colors[Y_ == i] = palette[i]
 
     # sizes of the datapoint markers
-    sizes = np.repeat(10, len(Y_))
-    sizes[special] = 25
+    sizes = np.repeat(20, len(Y_))
+    sizes[special] = 40
 
     # draw the correctly classified datapoints
     good = (Y_ == Y)
@@ -117,9 +118,11 @@ def graph_data(X, Y_, Y, special=[]):
     return artist
 
 
-def class_to_onehot(Y):
+def class_to_onehot(Y, return_torch_tensors=False):
     Yoh = np.zeros((len(Y), max(Y) + 1))
     Yoh[range(len(Y)), Y] = 1
+    if return_torch_tensors:
+        Yoh = torch.from_numpy(Yoh)
     return Yoh
 
 
