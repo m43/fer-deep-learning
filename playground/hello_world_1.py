@@ -3,10 +3,10 @@ import torch
 eta = 0.0005
 epochs = 10000
 
-y_fn = lambda x: x**5 - x**4 - x
+y_fn = lambda x: x ** 5 - x ** 4 - x
 y_real = -1
 # loss_fn = lambda y_real, y_predicted: y_predicted - y_real
-loss_fn = lambda y_real, y_predicted: (y_predicted - y_real)**2/2
+loss_fn = lambda y_real, y_predicted: (y_predicted - y_real) ** 2 / 2
 x_inits = [-2, -0.9, -0.5, 0, 0.5, 2]
 
 results = []
@@ -18,10 +18,10 @@ for x_init in x_inits:
 
         l.backward()
 
-        if i <= 20 or i%100 == 0:
+        if i <= 20 or i % 100 == 0:
             print(f"i:{i:06d}/{epochs} x:{x:.6f} y:{y:.6f} l:{l:2.7f} grad:{x.grad:.6f}")
 
-        x.data = x - eta*x.grad
+        x.data = x - eta * x.grad
         x.grad.zero_()
 
     print(f"We found x to be: {x}")
@@ -30,7 +30,6 @@ for x_init in x_inits:
 print("\nResults:")
 print("\n".join(results))
 print()
-
 
 """
 (gdb) r ...

@@ -1,7 +1,7 @@
-import math
-import sys
 from collections import OrderedDict
 
+import math
+import sys
 import torch
 import torch.nn as nn
 

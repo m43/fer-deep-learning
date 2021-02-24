@@ -1,10 +1,11 @@
-import torch, torch.nn.functional as F
+import torch
+import torch.nn.functional as F
 
 # roots: input, label, parameters, hiperparameter
-x = torch.tensor([1.,1.])
+x = torch.tensor([1., 1.])
 y = torch.tensor(0.)
-W1 = torch.tensor([[0.5,0], [0,1]], requires_grad=True)
-W2 = torch.tensor([1.,0.], requires_grad=True)
+W1 = torch.tensor([[0.5, 0], [0, 1]], requires_grad=True)
+W2 = torch.tensor([1., 0.], requires_grad=True)
 lambda1 = torch.tensor(0.01)
 
 # model

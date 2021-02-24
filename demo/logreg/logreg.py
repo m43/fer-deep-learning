@@ -5,7 +5,7 @@ import os
 import pprint
 
 from model.logreg import logreg_get_probs, logreg_train, logreg_loss
-from utils.data import graph_surface, graph_data, sample_gmm_2d, eval_perf_multi, class_to_onehot, sample_gauss_2d
+from utils.data import graph_surface, graph_data, eval_perf_multi, class_to_onehot, sample_gauss_2d
 from utils.util import project_path, get_str_formatted_time, ensure_dir
 
 
@@ -86,7 +86,7 @@ def demo(params):
         ani = animation.ArtistAnimation(
             fig, ims, interval=200, blit=True, repeat_delay=500)
         ani.save(os.path.join(params["save_dir"], "animation.mp4"), metadata={
-                 'artist': 'm43'})
+            'artist': 'm43'})
         print("Animation saved")
         if params["show_plots"]:
             plt.show()

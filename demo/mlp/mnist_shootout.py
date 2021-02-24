@@ -1,11 +1,11 @@
-import argparse
 import copy
+
+import argparse
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import pprint
 import random
-
-import matplotlib.pyplot as plt
-import numpy as np
 import torch
 import torch.optim as optim
 from matplotlib.ticker import StrMethodFormatter
@@ -307,8 +307,6 @@ if __name__ == "__main__":
     params["run_name"] = run_name
     params["save_dir"] = os.path.join(project_path, f"imgs/mnist_batchnorm2/{run_name}")
     ensure_dir(params["save_dir"])
-
-
 
     print("params:")
     pp.pprint(params)

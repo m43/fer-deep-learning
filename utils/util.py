@@ -1,8 +1,7 @@
+import numpy as np
 import os
 import pathlib
 from datetime import datetime
-
-import numpy as np
 
 horse = """               .,,.
              ,;;*;;;;,

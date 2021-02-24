@@ -1,13 +1,12 @@
-import os
-import zipfile
-from pprint import PrettyPrinter
-from shutil import copyfile
-
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import torch
+import zipfile
 from matplotlib import rcParams
 from matplotlib.ticker import StrMethodFormatter
+from pprint import PrettyPrinter
+from shutil import copyfile
 
 from demo.util import PTUtil
 from utils.data import class_to_onehot
@@ -25,7 +24,7 @@ x_valid, y_valid, y_valid_oh = x_valid.to(device), y_valid.to(device), y_valid_o
 x_test, y_test, y_test_oh = x_test.to(device), y_test.to(device), y_test_oh.to(device)
 PTUtil.standardize_inplace(x_train, [x_valid, x_test])
 
-model_location = os.path.join(project_path,"visuals/lab1/7_mnist__best_model")
+model_location = os.path.join(project_path, "visuals/lab1/7_mnist__best_model")
 results_path = os.path.join(project_path, "ma_results_best")
 ensure_dir(results_path)
 
@@ -93,6 +92,7 @@ plt.legend(loc="best")
 plt.savefig(f"{os.path.join(results_path, 'accuracy2.png')}", dpi=300)
 plt.close()
 
+
 def highest_loss_images(model, weight_decay, x, y, y_oh, prefix="", grid=(4, 4)):
     plt.style.use('ggplot')
 
@@ -143,7 +143,8 @@ def highest_loss_images(model, weight_decay, x, y, y_oh, prefix="", grid=(4, 4))
         # extra space between the text and the tick labels.
         ax.set_xlabel('Digit', labelpad=5, color='#333333')
         ax.set_ylabel('Probability given by model', labelpad=15, color='#333333')
-        ax.set_title(f'{prefix.replace("_", ":").title()} True digit = {y_i}, Loss = {loss_i:.6f}', pad=15, color='#333333', weight='bold')
+        ax.set_title(f'{prefix.replace("_", ":").title()} True digit = {y_i}, Loss = {loss_i:.6f}', pad=15,
+                     color='#333333', weight='bold')
 
         im = x[index_i].reshape((28, 28))
         # fig.figimage(im, 0, fig.bbox.ymax - 28, resize=2)

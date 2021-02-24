@@ -1,8 +1,7 @@
 import argparse
+import numpy as np
 import os
 import random
-
-import numpy as np
 import torch
 
 from demo.util import PTUtil

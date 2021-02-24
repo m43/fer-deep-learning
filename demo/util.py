@@ -1,10 +1,9 @@
-import os
-from functools import reduce
-
 import numpy as np
+import os
 import torch
 import torch.optim as optim
 import torchvision
+from functools import reduce
 from matplotlib import pyplot as plt
 
 from utils.data import eval_perf_multi, graph_surface, graph_data, sample_gauss_2d, sample_gmm_2d

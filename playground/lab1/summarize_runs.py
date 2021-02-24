@@ -1,12 +1,11 @@
-import os
-import zipfile
-from pprint import PrettyPrinter
-from shutil import copyfile
-
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import torch
+import zipfile
 from matplotlib.ticker import StrMethodFormatter
+from pprint import PrettyPrinter
+from shutil import copyfile
 
 from demo.util import PTUtil
 from model.pt_deep import PTDeep
