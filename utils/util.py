@@ -1,6 +1,9 @@
 import numpy as np
 import os
+import pandas as pd
 import pathlib
+import random
+import torch
 from datetime import datetime
 
 horse = """               .,,.
@@ -23,6 +26,10 @@ horse = """               .,,.
                 `""""`        `""""`     ;'"""  # Why jgs?
 
 project_path = pathlib.Path(__file__).parent.parent
+
+
+class Object(object):
+    pass
 
 
 def get_str_formatted_time() -> str:
@@ -71,3 +78,48 @@ def zipdir(path, ziph):
     for root, dirs, files in os.walk(path):
         for file in files:
             ziph.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(path, '..')))
+
+
+class MetricTracker:
+    def __init__(self, name, *keys):
+        self._data = pd.DataFrame(index=keys, columns=['total', 'counts', 'average'])
+        self.name = name
+        self.reset()
+
+    def get_name(self):
+        return self.name
+
+    def reset(self):
+        for col in self._data.columns:
+            self._data[col].values[:] = 0
+
+    def update(self, key, value, n=1):
+        self._data.total[key] += value * n
+        self._data.counts[key] += n
+        self._data.average[key] = self._data.total[key] / self._data.counts[key]
+
+    def avg(self, key):
+        return self._data.average[key]
+
+    def result(self):
+        return dict(self._data.average)
+
+
+def setup_torch_reproducibility(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+
+def setup_torch_device(print_logs=True):
+    device = torch.device("cuda") if torch.cuda.device_count() else torch.device("cpu")
+    device_ids = list(range(torch.cuda.device_count()))
+
+    if print_logs:
+        print(torch.cuda.device_count())
+        print(device_ids)
+        print("Using device", device)
+
+    return device

@@ -84,9 +84,10 @@ class PTDeep(nn.Module):
                     self.bn_var_momenta[i] *= self.bn_momentum
                     self.bn_var_momenta[i] += (1.0 - self.bn_momentum) * var.clone().detach()
 
-                    scores_hat = (scores - mean) / (var + self.bn_epsilon)
+
+                    scores_hat = (scores - mean) / (var + self.bn_epsilon) ** 0.5
                 else:
-                    scores_hat = (scores - self.bn_mean_momenta[i]) / (self.bn_var_momenta[i] + self.bn_epsilon)
+                    scores_hat = (scores - self.bn_mean_momenta[i]) / (self.bn_var_momenta[i] + self.bn_epsilon) ** 0.5
 
                 scores = self.bn_gammas[i] * scores_hat + self.bn_betas[i]
 

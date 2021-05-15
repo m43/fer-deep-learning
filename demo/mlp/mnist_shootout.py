@@ -26,7 +26,7 @@ def train_and_eval(params, model, x_train, y_train, y_train_oh, x_valid, y_valid
         optimizer = optim.Adam(model.parameters(), lr=params["eta"])
     elif params["optimizer"] == "adam+ls":
         optimizer = optim.Adam(model.parameters(), lr=params["eta"])
-        scheduler = optim.lr_scheduler.ExponentialLR(optimizer, 1 - params["eta"])
+        scheduler = optim.lr_scheduler.ExponentialLR(optimizer, 1 - params["eta"])  # TODO mislim da nema smisla 1-eta
 
     else:
         raise RuntimeError(f"Invalid value for optimizer, got '{params['optimizer']}'")

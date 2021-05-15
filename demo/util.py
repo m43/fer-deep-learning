@@ -1,9 +1,10 @@
-import numpy as np
 import os
+from functools import reduce
+
+import numpy as np
 import torch
 import torch.optim as optim
 import torchvision
-from functools import reduce
 from matplotlib import pyplot as plt
 
 from utils.data import eval_perf_multi, graph_surface, graph_data, sample_gauss_2d, sample_gmm_2d
@@ -192,6 +193,7 @@ class PTUtil:
         x_test, y_test = mnist_test.data, mnist_test.targets
         x_train, x_test = x_train.float().div_(255.0), x_test.float().div_(255.0)
 
+        #  might be better to shuffle first, but the loaded dataset is already shuffled so all good.
         N = x_train.shape[0]
         split_size = int(N * train_valid_ratio)
         x_train, x_valid = x_train.split([split_size, N - split_size])
