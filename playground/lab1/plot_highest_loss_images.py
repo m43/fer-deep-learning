@@ -8,7 +8,7 @@ from matplotlib.ticker import StrMethodFormatter
 from pprint import PrettyPrinter
 from shutil import copyfile
 
-from demo.util import PTUtil
+from demo.lab1.util import PTUtil
 from utils.data import class_to_onehot
 from utils.util import ensure_dir, zipdir, project_path
 

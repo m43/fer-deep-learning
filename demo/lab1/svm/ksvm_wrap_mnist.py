@@ -4,7 +4,7 @@ import os
 import random
 import torch
 
-from demo.util import PTUtil
+from demo.lab1.util import PTUtil
 from model.ksvm_wrap import KSVMWrap
 from utils.data import class_to_onehot
 from utils.util import ensure_dir, project_path, get_str_formatted_time
