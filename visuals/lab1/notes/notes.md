@@ -3,6 +3,364 @@
 Excel sheet with some results:
 <https://docs.google.com/spreadsheets/d/1fv7UyF2UmWiX7Lin4GtoRyjfZfZsXrGy9lFEeq9bXfQ/edit#gid=0>
 
+## 3 - pt_linreg
+
+Experiment setup:
+
+```py
+Hyperparameters
+epochs = 500
+eta = 0.1
+
+## Definition of the computational graph
+# data and parameters, init of parameters
+a = torch.randn(1, requires_grad=True)
+b = torch.randn(1, requires_grad=True)
+
+X = torch.tensor([1, 2, 3, 4, 3.5])
+Y = torch.tensor([3, 5, 7, 9, 7.9])
+N = X.shape[0]
+
+# optimization procedure: gradient descent
+optimizer = optim.SGD([a, b], lr=eta)
+```
+
+Result:
+
+```js
+step: 000000
+        loss:7.771786e+01
+        Y_:[-1.5415423 -1.8580694 -2.1745963 -2.4911234 -2.33286  ]
+        a:[4.785912]
+        b:[0.46691245]
+        pytorch gradients:
+                a:tensor([-51.0244])
+                b:tensor([-16.9193])
+        gradients by ma hand:
+                a:-51.024391174316406
+                b:-16.91927719116211
+step: 000001
+        loss:5.821820e+01
+        Y_:[ 5.2528243 10.038736  14.824649  19.610561  17.217606 ]
+        a:[0.3515877]
+        b:[-0.9348627]
+        pytorch gradients:
+                a:tensor([44.3432])
+                b:tensor([14.0178])
+        gradients by ma hand:
+                a:44.34324264526367
+                b:14.01775074005127
+step: 000002
+        loss:4.362144e+01
+        Y_:[-0.58327496 -0.23168725  0.11990041  0.47148818  0.2956943 ]
+        a:[4.1682305]
+        b:[0.3382525]
+        pytorch gradients:
+                a:tensor([-38.1664])
+                b:tensor([-12.7312])
+        gradients by ma hand:
+                a:-38.16642379760742
+                b:-12.731152534484863
+step: 000003
+        loss:3.269430e+01
+        Y_:[ 4.506483  8.674713 12.842944 17.011175 14.927059]
+        a:[0.8472642]
+        b:[-0.70424247]
+        pytorch gradients:
+                a:tensor([33.2097])
+                b:tensor([10.4249])
+        gradients by ma hand:
+                a:33.209659576416016
+                b:10.42495059967041
+step: 000004
+        loss:2.451377e+01
+        Y_:[0.1430217 0.9902859 1.8375499 2.6848142 2.261182 ]
+        a:[3.7016785]
+        b:[0.25508344]
+        pytorch gradients:
+                a:tensor([-28.5441])
+                b:tensor([-9.5933])
+        gradients by ma hand:
+                a:-28.544147491455078
+                b:-9.59325885772705
+step: 000005
+        loss:1.838900e+01
+        Y_:[ 3.9567618  7.6584406 11.360119  15.061797  13.210958 ]
+        a:[1.2140968]
+        b:[-0.51883966]
+        pytorch gradients:
+                a:tensor([24.8758])
+                b:tensor([7.7392])
+        gradients by ma hand:
+                a:24.875816345214844
+                b:7.739230155944824
+step: 000006
+        loss:1.380295e+01
+        Y_:[0.6952571 1.909354  3.1234508 4.3375473 3.730499 ]
+        a:[3.3484466]
+        b:[0.20531602]
+        pytorch gradients:
+                a:tensor([-21.3435])
+                b:tensor([-7.2416])
+        gradients by ma hand:
+                a:-21.3435001373291
+                b:-7.241556644439697
+step: 000007
+        loss:1.036864e+01
+        Y_:[ 3.5537627  6.9022093 10.250655  13.599102  11.924879 ]
+        a:[1.4847013]
+        b:[-0.36790833]
+        pytorch gradients:
+                a:tensor([18.6375])
+                b:tensor([5.7322])
+        gradients by ma hand:
+                a:18.637453079223633
+                b:5.732243537902832
+step: 000008
+        loss:7.796427e+00
+        Y_:[1.1167929 2.6014943 4.0861955 5.5708966 4.828546 ]
+        a:[3.0802267]
+        b:[0.17993467]
+        pytorch gradients:
+                a:tensor([-15.9553])
+                b:tensor([-5.4784])
+        gradients by ma hand:
+                a:-15.955255508422852
+                b:-5.478430271148682
+step: 000009
+        loss:5.869528e+00
+        Y_:[ 3.2601614  6.340388   9.420614  12.500841  10.960728 ]
+        a:[1.683479]
+        b:[-0.24337466]
+        pytorch gradients:
+                a:tensor([13.9675])
+                b:tensor([4.2331])
+        gradients by ma hand:
+                a:13.967475891113281
+                b:4.233092784881592
+step: 000010
+        loss:4.425694e+00
+        Y_:[1.4401042 3.1235833 4.807062  6.490541  5.6488013]
+        a:[2.8758218]
+        b:[0.17222165]
+        pytorch gradients:
+                a:tensor([-11.9234])
+                b:tensor([-4.1560])
+        gradients by ma hand:
+                a:-11.923429489135742
+                b:-4.155962944030762
+step: 000011
+        loss:3.343483e+00
+        Y_:[ 3.0480435  5.9238653  8.799686  11.6755085 10.237597 ]
+        a:[1.8286834]
+        b:[-0.13916643]
+        pytorch gradients:
+                a:tensor([10.4714])
+                b:tensor([3.1139])
+        gradients by ma hand:
+                a:10.471384048461914
+                b:3.1138806343078613
+step: 000012
+        loss:2.532006e+00
+        Y_:[1.6895169 3.5182004 5.346884  7.175567  6.261225 ]
+        a:[2.7193584]
+        b:[0.17717783]
+        pytorch gradients:
+                a:tensor([-8.9067])
+                b:tensor([-3.1634])
+        gradients by ma hand:
+                a:-8.906749725341797
+                b:-3.163442611694336
+step: 000013
+        loss:1.923228e+00
+        Y_:[ 2.8965364  5.615895   8.335253  11.054611   9.694932 ]
+        a:[1.9339669]
+        b:[-0.05071126]
+        pytorch gradients:
+                a:tensor([7.8539])
+                b:tensor([2.2789])
+        gradients by ma hand:
+                a:7.853916168212891
+                b:2.27889084815979
+step: 000014
+        loss:1.466227e+00
+        Y_:[1.8832556 3.8172226 5.7511897 7.6851563 6.718173 ]
+        a:[2.5989468]
+        b:[0.19108887]
+        pytorch gradients:
+                a:tensor([-6.6498])
+                b:tensor([-2.4180])
+        gradients by ma hand:
+                a:-6.6498003005981445
+                b:-2.418001174926758
+step: 000015
+        loss:1.122891e+00
+        Y_:[ 2.7900357  5.3889823  7.9879293 10.586876   9.287402 ]
+        a:[2.009539]
+        b:[0.02543985]
+        pytorch gradients:
+                a:tensor([5.8941])
+                b:tensor([1.6565])
+        gradients by ma hand:
+                a:5.894079685211182
+                b:1.6564900875091553
+step: 000016
+        loss:8.646897e-01
+        Y_:[2.0349786 4.0445175 6.0540566 8.063596  7.058826 ]
+        a:[2.5056806]
+        b:[0.21120088]
+        pytorch gradients:
+                a:tensor([-4.9614])
+                b:tensor([-1.8576])
+        gradients by ma hand:
+                a:-4.961417198181152
+                b:-1.8576103448867798
+step: 000017
+        loss:6.702665e-01
+        Y_:[ 2.7168815  5.222562   7.7282424 10.233923   8.981083 ]
+        a:[2.063032]
+        b:[0.09189322]
+        pytorch gradients:
+                a:tensor([4.4265])
+                b:tensor([1.1931])
+        gradients by ma hand:
+                a:4.426485538482666
+                b:1.1930766105651855
+step: 000018
+        loss:5.236359e-01
+        Y_:[2.154925  4.217957  6.2809887 8.344021  7.312505 ]
+        a:[2.4328856]
+        b:[0.23547737]
+        pytorch gradients:
+                a:tensor([-3.6985])
+                b:tensor([-1.4358])
+        gradients by ma hand:
+                a:-3.698538303375244
+                b:-1.43584144115448
+step: 000019
+        loss:4.128285e-01
+        Y_:[2.668363  5.1012487 7.5341344 9.96702   8.750577 ]
+        a:[2.100151]
+        b:[0.15062365]
+        pytorch gradients:
+                a:tensor([3.3273])
+                b:tensor([0.8485])
+        gradients by ma hand:
+                a:3.327345371246338
+                b:0.848537266254425
+step: 000020
+        loss:3.288857e-01
+        Y_:[2.2507746 4.350926  6.451077  8.551228  7.5011525]
+        a:[2.375559]
+        b:[0.26241735]
+        pytorch gradients:
+                a:tensor([-2.7541])
+                b:tensor([-1.1179])
+        gradients by ma hand:
+                a:-2.7540793418884277
+                b:-1.1179369688034058
+step: 000050
+        loss:2.168721e-02
+        Y_:[2.741402  4.8501744 6.9589467 9.0677185 8.013332 ]
+        a:[2.109327]
+        b:[0.64336675]
+        pytorch gradients:
+                a:tensor([-0.0055])
+                b:tensor([-0.1074])
+        gradients by ma hand:
+                a:-0.0055488585494458675
+                b:-0.10737047344446182
+step: 000100
+        loss:3.011330e-03
+        Y_:[2.9298239 4.9513645 6.972905  8.994446  7.9836755]
+        a:[2.020664]
+        b:[0.9109945]
+        pytorch gradients:
+                a:tensor([0.0088])
+                b:tensor([-0.0271])
+        gradients by ma hand:
+                a:0.00876617431640625
+                b:-0.027114104479551315
+step: 000150
+        loss:1.510718e-03
+        Y_:[2.982557  4.9787908 6.975024  8.971258  7.973141 ]
+        a:[1.9959842]
+        b:[0.9870925]
+        pytorch gradients:
+                a:tensor([0.0025])
+                b:tensor([-0.0077])
+        gradients by ma hand:
+                a:0.0024950981605798006
+                b:-0.007691478822380304
+step: 000200
+        loss:1.389896e-03
+        Y_:[2.9975202 4.9865723 6.9756246 8.964677  7.970151 ]
+        a:[1.9889812]
+        b:[1.0086862]
+        pytorch gradients:
+                a:tensor([0.0007])
+                b:tensor([-0.0022])
+        gradients by ma hand:
+                a:0.00070953369140625
+                b:-0.002182102296501398
+step: 000250
+        loss:1.380160e-03
+        Y_:[3.0017662 4.9887805 6.975795  8.962809  7.9693017]
+        a:[1.9869943]
+        b:[1.0148138]
+        pytorch gradients:
+                a:tensor([0.0002])
+                b:tensor([-0.0006])
+        gradients by ma hand:
+                a:0.0002006530703511089
+                b:-0.0006193161243572831
+step: 000300
+        loss:1.379369e-03
+        Y_:[3.002971 4.989407 6.975843 8.962279 7.969061]
+        a:[1.9864303]
+        b:[1.0165524]
+        pytorch gradients:
+                a:tensor([5.7604e-05])
+                b:tensor([-0.0002])
+        gradients by ma hand:
+                a:5.760193016612902e-05
+                b:-0.00017557144747115672
+step: 000350
+        loss:1.379322e-03
+        Y_:[3.003313  4.989585  6.9758573 8.962129  7.968993 ]
+        a:[1.9862702]
+        b:[1.017046]
+        pytorch gradients:
+                a:tensor([1.8030e-05])
+                b:tensor([-4.9210e-05])
+        gradients by ma hand:
+                a:1.8024444216280244e-05
+                b:-4.920959327137098e-05
+step: 000400
+        loss:1.379319e-03
+        Y_:[3.0034099 4.9896355 6.9758606 8.962087  7.968974 ]
+        a:[1.9862248]
+        b:[1.0171858]
+        pytorch gradients:
+                a:tensor([7.3537e-06])
+                b:tensor([-1.3351e-05])
+        gradients by ma hand:
+                a:7.343292054429185e-06
+                b:-1.33514404296875e-05
+step: 000450
+        loss:1.379314e-03
+        Y_:[3.0034375 4.98965   6.975862  8.962074  7.9689684]
+        a:[1.9862119]
+        b:[1.0172255]
+        pytorch gradients:
+                a:tensor([3.7141e-06])
+                b:tensor([-3.2429e-06])
+        gradients by ma hand:
+                a:3.719329924933845e-06
+                b:-3.24249276673072e-06
+Done
+```
+
 ## 4 - pt_logreg
 
 logreg vs pt_logreg - 1 - no weight decay - same
@@ -768,10 +1126,10 @@ $$y_i \leftarrow \gamma \hat{x_i} + \beta \equiv \text{BN}_{\gamma,\beta}(x_i)$$
 <!-- Learnable parameters $\gamma$ i $\beta$ (afinu transformaciju normalizirane vrijednosti) nisam implementirao. Ma ne implementirat cu, imam autograd, nes ti -->
 Parametar $\epsilon$ sam postavio na 1e-5.
 
-`python.exe -m demo.mlp.mnist_shootout --init kaiming_uniform --log_interval 1 --log_images_interval 400000 --v 1 --npl 784 100 100 10 --epochs 150000 --es 10000 --wd 0 --eta 0.01 --optimizer sgd --prefix batchnorm_ --batch_norm True --batch_norm_epsilon 1e-5 --batch_norm_momentum 0.9 --seed 360`
+`python -m demo.mlp.mnist_shootout --init kaiming_uniform --log_interval 1 --log_images_interval 400000 --v 1 --npl 784 100 100 10 --epochs 150000 --es 10000 --wd 0 --eta 0.01 --optimizer sgd --prefix batchnorm_fixed_ --batch_norm True --batch_norm_epsilon 1e-5 --batch_norm_momentum 0.9 --seed 360`
 ![logloss_batchnorm_opt=sgd_act=relu_i=kaiming_uniform_h=4_mb=50000_epochs=150000_es=10000_eta=0.01_wd=0.0_s=360](../7_mnist_batchnorm/logloss_batchnorm_opt=sgd_act=relu_i=kaiming_uniform_h=4_mb=50000_epochs=150000_es=10000_eta=0.01_wd=0.0_s=360.png)
 
-`python.exe -m demo.mlp.mnist_shootout --init kaiming_uniform --log_interval 1 --log_images_interval 400000 --v 1 --npl 784 100 100 10 --epochs 150000 --es 10000 --wd 1e-3 --eta 0.01 --optimizer sgd --prefix batchnorm_ --batch_norm True --batch_norm_epsilon 1e-5 --batch_norm_momentum 0.9 --seed 360`
+`python -m demo.mlp.mnist_shootout --init kaiming_uniform --log_interval 1 --log_images_interval 400000 --v 1 --npl 784 100 100 10 --epochs 150000 --es 10000 --wd 1e-3 --eta 0.01 --optimizer sgd --prefix batchnorm_fixed_ --batch_norm True --batch_norm_epsilon 1e-5 --batch_norm_momentum 0.9 --seed 360`
 ![logloss_batchnorm_opt=sgd_act=relu_i=kaiming_uniform_h=4_mb=50000_epochs=150000_es=10000_eta=0.01_wd=0.001_s=360](../7_mnist_batchnorm/logloss_batchnorm_opt=sgd_act=relu_i=kaiming_uniform_h=4_mb=50000_epochs=150000_es=10000_eta=0.01_wd=0.001_s=360.png)
 
 
@@ -792,7 +1150,7 @@ batchnorm_opt=sgd_act=relu_i=kaiming_uniform_h=4_mb=50000_epochs=150000_es=10000
 
 Nisam siguran je li bi ocekivao bolje rezultate kod batchnorma na ova dva pokrenuta primjera, ali iz rezultata je vidljivo da je test performansa losija.
 
-Trebao sam isprobati vise hiperparametara i jos druge modele za zakljucivati vise. Batchnorm implementaciju nisam pomno testirao, mozda ima gdjegod koja prikrivena buba. (TODO testirati temeljitije ako imam vremena)
+Trebao sam isprobati vise hiperparametara i jos druge modele za zakljucivati vise. Batchnorm implementaciju nisam pomno testirao, mozda ima gdjegod koja prikrivena buba.
 
 <!-- ### Anizotropna regularizacija
 
