@@ -1,6 +1,5 @@
 import torch
 import torch.optim as optim
-import torch.nn as nn
 
 # Hyperparameters
 epochs = 500
@@ -20,22 +19,23 @@ optimizer = optim.SGD([a, b], lr=eta)
 
 for i in range(epochs):
     # affine regression model
-    Y_ = a*X + b
-    diff = (Y-Y_)
+    Y_ = a * X + b
+    diff = (Y - Y_)
 
     # square loss
-    loss = torch.sum(diff**2) / N
+    loss = torch.sum(diff ** 2) / N
 
     # compute the gradient
     loss.backward()
-    a_grad_hand = torch.sum(-2*(Y-Y_)*X)/N
-    b_grad_hand = torch.sum(-2*(Y-Y_))/N
+    a_grad_hand = torch.sum(-2 * (Y - Y_) * X) / N
+    b_grad_hand = torch.sum(-2 * (Y - Y_)) / N
 
     # optimization step
     optimizer.step()
 
-    if i<=20 or i%50==0:
-        print(f"step: {i:06d}\n\tloss:{loss:e}\n\tY_:{Y_.detach().numpy()}\n\ta:{a.detach().numpy()}\n\tb:{b.detach().numpy()}")
+    if i <= 20 or i % 50 == 0:
+        print(
+            f"step: {i:06d}\n\tloss:{loss:e}\n\tY_:{Y_.detach().numpy()}\n\ta:{a.detach().numpy()}\n\tb:{b.detach().numpy()}")
         print(f"\tpytorch gradients:\n\t\ta:{a.grad}\n\t\tb:{b.grad}")
         print(f"\tgradients by ma hand:\n\t\ta:{a_grad_hand}\n\t\tb:{b_grad_hand}")
 

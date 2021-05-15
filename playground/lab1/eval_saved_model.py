@@ -1,16 +1,16 @@
-import os
-import zipfile
-from pprint import PrettyPrinter
-from shutil import copyfile
-
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import torch
+import zipfile
 from matplotlib.ticker import StrMethodFormatter
+from pprint import PrettyPrinter
+from shutil import copyfile
 
 from demo.util import PTUtil
 from utils.data import class_to_onehot
 from utils.util import ensure_dir, zipdir, project_path
+
 device = torch.device("cuda") if torch.cuda.device_count() else torch.device("cpu")
 
 (x_train, y_train,), (x_valid, y_valid), (x_test, y_test) = PTUtil.load_mnist()

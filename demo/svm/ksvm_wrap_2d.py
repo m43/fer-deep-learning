@@ -1,7 +1,6 @@
+import numpy as np
 import os
 import pprint
-
-import numpy as np
 import torch
 
 from demo.util import PTUtil

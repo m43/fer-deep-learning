@@ -2,14 +2,14 @@ import numpy as np
 import sys
 from tqdm import tqdm
 
-from utils.util import softmax, relu
 from utils.data import class_to_onehot
+from utils.util import softmax, relu
 
 
 def fcann2_forward(x, w1, b1, w2, b2):
-    s1 = x@w1+b1  # NxH
+    s1 = x @ w1 + b1  # NxH
     h1 = relu(s1)  # NxH
-    s2 = h1@w2 + b2  # NxC
+    s2 = h1 @ w2 + b2  # NxC
     p = softmax(s2)  # NxC
     return s1, h1, s2, p
 
@@ -26,7 +26,7 @@ def fcann2_loss(Y_onehot_, probs, w1, w2, lambda_):
 def fcann2_train(X, Y_, H, eta, epochs, lambda_, log_interval=10, callback_fn=None):
     N = X.shape[0]
     D = X.shape[1]
-    C = Y_.max()+1
+    C = Y_.max() + 1
 
     w1 = np.random.randn(D, H)
     b1 = np.zeros(H)

@@ -69,6 +69,7 @@ results:
  'w': array([-3.00666517,  2.09776666]),
  'w_mean': -0.4544492542413696,
  'w_std': 2.552215916333711}
+comments: enough epochs this time, looks good
 
 name: ex04
 params:

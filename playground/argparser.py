@@ -1,5 +1,4 @@
 import argparse
-from typing import List
 
 parser = argparse.ArgumentParser(description='Personal information')
 parser.add_argument('--name', dest='name', type=str, help='Name of the candidate')

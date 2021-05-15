@@ -1,11 +1,11 @@
-import argparse
 import copy
+
+import argparse
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import pprint
 import random
-
-import matplotlib.pyplot as plt
-import numpy as np
 import torch
 import torch.optim as optim
 from matplotlib.ticker import StrMethodFormatter
@@ -26,7 +26,7 @@ def train_and_eval(params, model, x_train, y_train, y_train_oh, x_valid, y_valid
         optimizer = optim.Adam(model.parameters(), lr=params["eta"])
     elif params["optimizer"] == "adam+ls":
         optimizer = optim.Adam(model.parameters(), lr=params["eta"])
-        scheduler = optim.lr_scheduler.ExponentialLR(optimizer, 1 - params["eta"])
+        scheduler = optim.lr_scheduler.ExponentialLR(optimizer, 1 - params["eta"])  # TODO mislim da nema smisla 1-eta
 
     else:
         raise RuntimeError(f"Invalid value for optimizer, got '{params['optimizer']}'")
@@ -307,8 +307,6 @@ if __name__ == "__main__":
     params["run_name"] = run_name
     params["save_dir"] = os.path.join(project_path, f"imgs/mnist_batchnorm2/{run_name}")
     ensure_dir(params["save_dir"])
-
-
 
     print("params:")
     pp.pprint(params)

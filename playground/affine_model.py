@@ -1,5 +1,6 @@
-import torch
 import pprint
+import torch
+
 
 class Affine(torch.nn.Module):
     def __init__(self, in_features, out_features):
@@ -10,6 +11,7 @@ class Affine(torch.nn.Module):
 
     def forward(self, input):
         return self.linear(input) + self.bias
+
 
 affine = Affine(3, 4)
 
@@ -22,9 +24,7 @@ for name_str, name in zip(named_str, named):
     print()
 
 print("in")
-in_tensor = torch.tensor([10000.,100.,1.])
+in_tensor = torch.tensor([10000., 100., 1.])
 print(in_tensor)
 print("out")
 print(affine(in_tensor))
-
-
