@@ -62,14 +62,14 @@ class TokenVocab(Vocab):
 
 
 class NLPDataset(Dataset):
-    def __init__(self, instances, create_vocab, max_vocab_size, min_token_freq_in_vocab):
+    def __init__(self, instances, max_vocab_size, min_token_freq_in_vocab, vocab=None):
         self.instances = instances
-        if create_vocab:
+        if vocab is None:
             token_freq, _ = self.get_frequencies()
             self._text_vocab = TokenVocab(token_freq, max_size=max_vocab_size, min_freq=min_token_freq_in_vocab)
             self.label_vocab = SentimentLabelVocab()
         else:
-            self._text_vocab, self.label_vocab = None, None
+            self._text_vocab, self.label_vocab = vocab
 
     def __len__(self):
         return len(self.instances)
@@ -96,24 +96,25 @@ class NLPDataset(Dataset):
         return t_freq, s_freq
 
     @staticmethod
-    def from_file(path, create_vocab=True, max_vocab_size=-1, min_token_freq_in_vocab=0):
+    def from_file(path, vocab=None, max_vocab_size=-1, min_token_freq_in_vocab=0):
         ds = pd.read_csv(path, sep=",", header=None, quoting=csv.QUOTE_NONE)
         data = [Instance(t.split(" "), s.strip()) for t, s in zip(ds[0], ds[1])]
-        return NLPDataset(data, create_vocab, max_vocab_size, min_token_freq_in_vocab)
+        return NLPDataset(data, max_vocab_size, min_token_freq_in_vocab, vocab)
 
     @staticmethod
     def pad_collate_fn(batch, pad_idx=0):
         texts, labels = zip(*batch)
         lengths = torch.tensor([len(text) for text in texts])
         texts = torch.nn.utils.rnn.pad_sequence(texts, batch_first=True, padding_value=pad_idx)
-        return texts, torch.tensor(labels), lengths
+        return texts, torch.tensor(labels, dtype=torch.float), lengths
 
 
 def load_sst_dataset(max_vocab_size=-1, min_token_freq_in_vocab=0):
-    train = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_TRAIN_CSV_FILENAME), True, max_vocab_size,
+    train = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_TRAIN_CSV_FILENAME), None, max_vocab_size,
                                  min_token_freq_in_vocab)
-    valid = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_VALID_CSV_FILENAME), False)
-    test = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_TEST_CSV_FILENAME), False)
+    vocab = train.text_vocab, train.label_vocab
+    valid = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_VALID_CSV_FILENAME), vocab)
+    test = NLPDataset.from_file(os.path.join(SST_DATASET_DIR, SST_TEST_CSV_FILENAME), vocab)
     test.text_vocab = valid.text_vocab = train.text_vocab
     return train, valid, test
 

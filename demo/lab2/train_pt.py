@@ -5,7 +5,7 @@ from torchsummary import summary
 
 from demo.lab2.util import load_mnist
 from model.conv_model import SimpleConvolutionalModel
-from trainer import SimpleConvTrainer
+from trainer.trainer import SimpleConvTrainer
 from utils.metric import accuracy
 from utils.util import project_path, ensure_dirs, setup_torch_reproducibility, setup_torch_device
 
@@ -77,4 +77,4 @@ for wd in [0, 0.001, 0.01, 0.1]:
         test_loader=test_loader,
         lr_scheduler=lr_scheduler
     )
-    trainer.train()
+    trainer.train_epoch()

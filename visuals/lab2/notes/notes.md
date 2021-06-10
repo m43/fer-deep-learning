@@ -294,7 +294,7 @@ Ako imamo model koji daje jednake vjerojojatnosti za sve razrede i gubitak bez r
 
 Ocigledno je da koristimo gubitak koji uzima prosjek nad batchom. Takodjer je ocigledno da pocetni gubitak uvelike ovisi o inicijalizaciji parametara modela i da stoga moze znacajno varirati. Ponovnim pokretanjem sam primjerice dobio  2.31, sto je $-1*ln(0.0993)$ odnosno gotovo pa puko pogadjanje razreda.
 
-### 2. zadatak (25%)
+## 2. zadatak (25%)
 
 > U ovom zadatku trebate dodati podršku za L2 regularizaciju parametara. Dovršite implementaciju sloja `L2Regularizer` te naučite regularizirani model iz prethodnog zadatka koji se nalazi u `train_l2reg.py`. Proučite efekte regularizacijskog hiper-parametra tako da naučite tri različita modela s $$( \lambda = 1e^{-3}, \lambda=1e^{-2}, \lambda=1e^{-1}) $$
 
@@ -383,7 +383,7 @@ $\lambda: 0, 1e^{-3}, 1e^{-2}, 1e^{-1}$
 
 Filteri bez regularizacije i uz $\lambda = 1e^{-3}$ podsjecaju na prenaucene filtere koji ne vade znacajke koje bismo ocekivali vidjeti poput feature extractora za rubove, linije, tocke, krivulje etc. Filteri za $\lambda = 1e^{-2}$ u mnogom izgledaju kao feature extractori koji mogu prepoznati rubove, liniije, zakrivljenja itd. Filteri za najjacu l2 regularizaciju $\lambda = 1e^{-1}$ izgledaju vrlo restriktivno i na njima ne prepoznajem ocekivane feature extractore.
 
-### 3. zadatak - usporedba s PyTorchem (25%)
+## 3. zadatak - usporedba s PyTorchem (25%)
 
 > U PyTorchu definirajte i naučite model koji je ekvivalentan regulariziranom modelu iz 2. zadatka. Koristite identičnu arhitekturu i parametre učenja da biste reproducirali rezultate.
 
@@ -410,8 +410,7 @@ Histogrami tezina tokom epoha:
 
 ![](../3_results/tensorboard_histograms.png)
 
-
-### 4. zadatak - Klasifikacija na skupu CIFAR-10 (25%)
+## 4. zadatak - Klasifikacija na skupu CIFAR-10 (25%)
 
 > Najprije skinite dataset pripremljen za Python [odavde](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz) ili korištenjem [`torchvision.datasets.CIFAR10`](https://pytorch.org/docs/stable/torchvision/datasets.html#cifar).
 

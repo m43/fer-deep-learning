@@ -1,10 +1,11 @@
-import numpy as np
 import os
-import pandas as pd
 import pathlib
 import random
-import torch
 from datetime import datetime
+
+import numpy as np
+import pandas as pd
+import torch
 
 horse = """               .,,.
              ,;;*;;;;,
@@ -105,12 +106,22 @@ class MetricTracker:
         return dict(self._data.average)
 
 
-def setup_torch_reproducibility(seed):
+def setup_torch_reproducibility(seed, convolution_determinism=True, convolution_benchmarking=False):
+    """
+    Seed torch, numpy and (python's) random with the given seed. If on GPU, determinism
+    can be exchanged for speed by setting torch.backends.cudnn.deterministic to True
+    and torch.backends.cudnn.benchmark to False, which is done by default parameters.
+    For more information, visit https://pytorch.org/docs/stable/notes/randomness.html
+    :param seed: seed to use
+    :param convolution_determinism: value for torch.backends.cudnn.deterministic (True for reproducibility)
+    :param convolution_benchmarking: value for torch.backends.cudnn.benchmark (False for reproducibility)
+    :return: nothing to return
+    """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = convolution_determinism
+    torch.backends.cudnn.benchmark = convolution_benchmarking
 
 
 def setup_torch_device(print_logs=True):
