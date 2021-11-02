@@ -3,7 +3,7 @@ import os
 import pprint
 import torch
 
-from demo.util import PTUtil
+from demo.lab1.util import PTUtil
 from model.pt_logreg import PTLogreg
 from utils.data import sample_gauss_2d, class_to_onehot
 from utils.util import get_str_formatted_time, ensure_dir, project_path

@@ -105,7 +105,7 @@ trainer = SimpleConvTrainer(
     test_loader=test_loader,
     lr_scheduler=lr_scheduler
 )
-trainer.train()
+trainer.train_epoch()
 
 
 def highest_loss_images(top_losses, top_images, top_probs, top_targets, n, m, save_dir, prefix=""):

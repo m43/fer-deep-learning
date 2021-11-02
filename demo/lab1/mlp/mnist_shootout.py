@@ -11,7 +11,7 @@ import torch.optim as optim
 from matplotlib.ticker import StrMethodFormatter
 from tqdm import tqdm
 
-from demo.util import PTUtil
+from demo.lab1.util import PTUtil
 from model.pt_deep import PTDeep, PTDeep2
 from utils.data import class_to_onehot
 from utils.util import ensure_dir, project_path

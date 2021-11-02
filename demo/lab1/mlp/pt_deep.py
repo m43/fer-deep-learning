@@ -3,7 +3,7 @@ import os
 import pprint
 import torch
 
-from demo.util import PTUtil
+from demo.lab1.util import PTUtil
 from model.pt_deep import PTDeep
 from model.pt_deep import PTDeep2
 from utils.data import class_to_onehot
